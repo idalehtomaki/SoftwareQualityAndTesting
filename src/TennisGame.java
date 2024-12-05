@@ -9,16 +9,23 @@ public class TennisGame {
 	private boolean gameEnded;
 	
 	public TennisGame() {
+		
 		player1Points = 0;
 		player2Points = 0;
 		gameEnded = false ;
+		
 	}
 	
 	private void checkGameEnded() {
-		if (player1Points>=4 && player1Points-player2Points>=2)
+		// there was a bug: there needs to be all the possibilities conditioned, so i chose else if in between.
+		if (player1Points>=4 && player1Points-player2Points >=2) {
 			gameEnded = true;
-		else if (player2Points>=4 && player2Points-player1Points>=2)
+		}
+		else if (player2Points >= 4 && player2Points - player1Points >= 2) {
 			gameEnded = true;
+		} else {
+			gameEnded = false;
+		}
 	}
 	
 	private String getScore(int points) {
@@ -67,25 +74,30 @@ public class TennisGame {
 // "player1 wins"
 // "player2 wins"
 		
+		
 			String player1Score = getScore(player1Points);
 			String player2Score = getScore(player2Points);
 			
 			if (gameEnded) {
 				if (player1Points > player2Points)
 					return "player1 wins";
-				else
+				else 
 					return "player2 wins";
 			}
 			
-			if (player1Points >= 4 && player1Points == player2Points)
+			if (player1Points >= 4 && player1Points == player2Points) { 
 				return "deuce";
-			
-			if (player1Points >= 4 && player1Points - player2Points == 1)
+			}
+			if (player1Points >= 4 && player1Points - player2Points == 1) {
 				return "player1 has advantage";
+			}
+			// there was a bug: operation was > when for advantage it needs to be >= 4
+			if (player2Points >= 4 && player2Points - player1Points == 1) {
+				return "player2 has advantage";	
+				}
 			
-			if (player2Points > 4 && player2Points - player1Points == 1)
-				return "player2 has advantage";							
-			
-			return  player2Score + " - " + player1Score ;
+									
+		// this was a bug, I think the results need to be first player1 and then player2
+			return  player1Score + " - " + player2Score;
 	}
 }
